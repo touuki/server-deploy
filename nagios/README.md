@@ -32,14 +32,16 @@ systemctl enable nagios
 allowed_hosts=127.0.0.1,::1,nagios.belew.tech
 
 command[check_users]=/usr/lib64/nagios/plugins/check_users -w 5 -c 10
-command[check_load]=/usr/lib64/nagios/plugins/check_load -r -w 0.9,0.7,0.5 -c 1.2,1.0,0.8
-command[check_disk]=/usr/lib64/nagios/plugins/check_disk -w 20% -c 10% -p /dev/vda1
+command[check_load]=/usr/lib64/nagios/plugins/check_load -r -w 1.0,0.9,0.8 -c 1.3,1.15,1.0
+command[check_disk]=/usr/lib64/nagios/plugins/check_disk -w 20% -c 10% -p /dev/vda1 # -C -w 20 -c 10 -p /dev/vdb1 -u GiB
 command[check_zombie_procs]=/usr/lib64/nagios/plugins/check_procs -w 5 -c 10 -s Z
 command[check_total_procs]=/usr/lib64/nagios/plugins/check_procs -w 300 -c 500
 command[check_iostat]=/usr/lib64/nagios/plugins/check_iostat -d vda1 -w 1200,84000,84000,50 -c 2000,96000,96000,100
 command[check_mem]=/usr/lib64/nagios/plugins/check_mem -w 80% -c 90%
 command[check_traffic]=/usr/lib64/nagios/plugins/check_traffic -V 2c -H localhost -C local -N eth0 -w 80000,16000 -c 90000,18000 
 command[check_mysql]=/usr/lib64/nagios/plugins/check_mysql -H localhost -u username -p password
+
+command[check_iostat_ssd]=/usr/lib64/nagios/plugins/check_iostat -d vdb1 -w 16000,240000,240000,50 -c 18000,270000,270000,100
 ```
 
 启动服务，设置开机服务
