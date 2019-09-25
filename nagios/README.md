@@ -8,6 +8,7 @@ cfg_file=/etc/nagios/objects/contacts.cfg
 cfg_file=/etc/nagios/objects/timeperiods.cfg
 cfg_file=/etc/nagios/objects/templates.cfg
 cfg_file=/etc/nagios/objects/hostgroups.cfg
+cfg_file=/etc/nagios/objects/linux-system-momitor.cfg
 cfg_file=/etc/nagios/objects/samplehost.cfg
 ```
 
