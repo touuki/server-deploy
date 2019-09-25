@@ -21,6 +21,7 @@ systemctl enable nagios
 * [check_mem](https://exchange.nagios.org/directory/Plugins/Operating-Systems/Linux/check_mem/details)
 * [check_iostat](https://exchange.nagios.org/directory/Plugins/Operating-Systems/Linux/check_iostat--2D-I-2FO-statistics--2D-updated-2016/details)
 * [check_traffic](https://exchange.nagios.org/directory/Plugins/Network-Connections%2C-Stats-and-Bandwidth/check_traffic-2Esh/details)/[github](https://github.com/cloved/check_traffic)
+* [html_email](https://exchange.nagios.org/directory/Plugins/Notifications/Responsive-HTML-Email-Notifications-Templates-for-Nagios/details)/[github](https://github.com/heiniha/Nagios-Responsive-HTML-Email-Notifications)
 
 ## NRPE
 ### On Nagios Host
@@ -53,7 +54,7 @@ systemctl enable nrpe
 
 ## SNMP
 安装[Net-SNMP](http://www.net-snmp.org/)，`yum -y install net-snmp`，修改`/etc/snmp/snmpd.conf`
-```conf
+```cfg
 # Here is a commented out example configuration that allows less
 # restrictive access.
 
