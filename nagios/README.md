@@ -21,7 +21,7 @@ systemctl enable nagios
 安装`yum -y install nagios-plugins-all`，将下列自定义脚本放至`/usr/lib64/nagios/plugins/`，注意给予执行权限`chmod +x`
 * [check_mem](https://exchange.nagios.org/directory/Plugins/Operating-Systems/Linux/check_mem/details)
 * [check_iostat](https://exchange.nagios.org/directory/Plugins/Operating-Systems/Linux/check_iostat--2D-I-2FO-statistics--2D-updated-2016/details)
-* [check_traffic](https://exchange.nagios.org/directory/Plugins/Network-Connections%2C-Stats-and-Bandwidth/check_traffic-2Esh/details)/[github](https://github.com/cloved/check_traffic)
+* [check_snmp_traffic](https://exchange.nagios.org/directory/Plugins/Network-Connections%2C-Stats-and-Bandwidth/check_traffic-2Esh/details)/[github](https://github.com/cloved/check_traffic)
 * [html_email](https://exchange.nagios.org/directory/Plugins/Notifications/Responsive-HTML-Email-Notifications-Templates-for-Nagios/details)/[github](https://github.com/heiniha/Nagios-Responsive-HTML-Email-Notifications)
 
 ## NRPE
