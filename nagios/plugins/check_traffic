@@ -30,7 +30,7 @@ warn_read=`echo $warning | cut -d, -f1`
 warn_written=`echo $warning | cut -d, -f2`
 
 # Checking parameters:
-#[ ! -b "/dev/$disk" ] && echo "ERROR: Device incorrectly specified" && help
+[ "$interface" == "" ] && echo "ERROR: No interface specified" && help
 
 ( [ "$warn_read" == "" ] || [ "$warn_written" == "" ] ||\
   [ "$crit_read" == "" ] || [ "$crit_written" == "" ] ) &&
@@ -43,6 +43,7 @@ warn_written=`echo $warning | cut -d, -f2`
 
 # Doing the actual check:
 sar_read=`LC_TIME='C' $sar -n DEV | grep $interface | tail -n2 | head -n1`
+[ "$sar_read" == "" ] && echo "ERROR: no interface named $interface found" && exit -1
 kbread=`echo $sar_read |awk '{print $5}'`
 kbwritten=`echo $sar_read |awk '{print $6}'`
 kbread=`echo "scale=2;${kbread}*8" | bc`
