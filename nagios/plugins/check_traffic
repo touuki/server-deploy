@@ -42,9 +42,9 @@ warn_written=`echo $warning | cut -d, -f2`
 
 
 # Doing the actual check:
-sar_read=`$sar -n DEV 2 1 | grep $interface | head -n1`
-kbread=`echo $sar_read |awk '{print $6}'`
-kbwritten=`echo $sar_read |awk '{print $7}'`
+sar_read=`LC_TIME='C' $sar -n DEV | grep $interface | tail -n2 | head -n1`
+kbread=`echo $sar_read |awk '{print $5}'`
+kbwritten=`echo $sar_read |awk '{print $6}'`
 kbread=`echo "scale=2;${kbread}*8" | bc`
 kbwritten=`echo "scale=2;${kbwritten}*8" | bc`
 kbtotal=`echo "scale=2;${kbread}+${kbwritten}" | bc`
