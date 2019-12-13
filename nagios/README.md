@@ -21,8 +21,15 @@ systemctl enable nagios
 安装`yum -y install nagios-plugins-all`，将下列自定义脚本放至`/usr/lib64/nagios/plugins/`，注意给予执行权限`chmod +x`
 * [check_mem](https://github.com/touuki/server-deploy/raw/master/nagios/plugins/check_mem)修改自[check_mem](https://exchange.nagios.org/directory/Plugins/Operating-Systems/Linux/check_mem/details)
 * [check_iostat](https://github.com/touuki/server-deploy/raw/master/nagios/plugins/check_iostat)来自[check_iostat](https://exchange.nagios.org/directory/Plugins/Operating-Systems/Linux/check_iostat--2D-I-2FO-statistics--2D-updated-2016/details)
-* （已废弃）[check_snmp_traffic](https://exchange.nagios.org/directory/Plugins/Network-Connections%2C-Stats-and-Bandwidth/check_traffic-2Esh/details) or [github](https://github.com/cloved/check_traffic)
-* （只在主控端需要）[html_email](https://exchange.nagios.org/directory/Plugins/Notifications/Responsive-HTML-Email-Notifications-Templates-for-Nagios/details) or [github](https://github.com/heiniha/Nagios-Responsive-HTML-Email-Notifications)
+* [check_traffic](https://github.com/touuki/server-deploy/raw/master/nagios/plugins/check_traffic)修改自[check_snmp_traffic](https://exchange.nagios.org/directory/Plugins/Network-Connections%2C-Stats-and-Bandwidth/check_traffic-2Esh/details) or [github](https://github.com/cloved/check_traffic)
+* （只在主控端需要）[html_email](https://exchange.nagios.org/directory/Plugins/Notifications/Responsive-HTML-Email-Notifications-Templates-for-Nagios/details) or [github](https://github.com/heiniha/Nagios-Responsive-HTML-Email-Notifications)  
+```bash
+cd /usr/lib64/nagios/plugins
+wget https://github.com/touuki/server-deploy/raw/master/nagios/plugins/check_mem
+wget https://github.com/touuki/server-deploy/raw/master/nagios/plugins/check_iostat
+wget https://github.com/touuki/server-deploy/raw/master/nagios/plugins/check_traffic
+chmod +x check_mem check_iostat check_traffic
+```
 
 ## NRPE
 ### On Nagios Host
@@ -33,13 +40,13 @@ systemctl enable nagios
 ```cfg
 allowed_hosts=127.0.0.1,::1,nagios.belew.tech
 
-command[check_users]=/usr/lib64/nagios/plugins/check_users -w 5 -c 10
-command[check_load]=/usr/lib64/nagios/plugins/check_load -r -w 1.0,0.9,0.8 -c 1.3,1.15,1.0
+command[check_users]=/usr/lib64/nagios/plugins/check_users -w 4 -c 8
+command[check_load]=/usr/lib64/nagios/plugins/check_load -r -w 1.0,0.9,0.8 -c 1.4,1.2,1.0
 command[check_disk]=/usr/lib64/nagios/plugins/check_disk -w 20% -c 10% -p /dev/vda1 # -C -w 20 -c 10 -p /dev/vdb1 -u GiB
-command[check_zombie_procs]=/usr/lib64/nagios/plugins/check_procs -w 5 -c 10 -s Z
-command[check_total_procs]=/usr/lib64/nagios/plugins/check_procs -w 300 -c 500
+command[check_zombie_procs]=/usr/lib64/nagios/plugins/check_procs -w 3 -c 6 -s Z
+command[check_total_procs]=/usr/lib64/nagios/plugins/check_procs -w 240 -c 400
 command[check_iostat]=/usr/lib64/nagios/plugins/check_iostat -d vda1 -w 1200,84000,84000,50 -c 2000,96000,96000,100
-command[check_mem]=/usr/lib64/nagios/plugins/check_mem -w 90%,30% -c 95%,60%
+command[check_mem]=/usr/lib64/nagios/plugins/check_mem -w 80%,30% -c 90%,60%
 command[check_traffic]=/usr/lib64/nagios/plugins/check_traffic -i eth0 -w 80000,16000 -c 90000,18000 
 command[check_mysql]=/usr/lib64/nagios/plugins/check_mysql -H localhost -u username -p password
 
